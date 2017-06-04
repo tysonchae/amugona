@@ -23,7 +23,8 @@ public class Account {
 
     private String email;
 
-    private String userName;
+    @Column(unique = true)
+    private String username;
 
     private String fullName;
 
