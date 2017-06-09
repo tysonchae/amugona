@@ -22,6 +22,7 @@ import javax.transaction.Transactional;
 
 import static com.sun.org.apache.xerces.internal.util.PropertyState.is;
 import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -105,6 +106,18 @@ public class AccountControllerTest {
         expectedBadResult.andDo(print());
         expectedBadResult.andExpect(status().isBadRequest());
         expectedBadResult.andExpect(jsonPath("$.code").value("duplicated.username.exception"));
+    }
+
+    @Test
+    public void getAccount() throws Exception{
+        AccountDto.Create  createDto = new AccountDto.Create();
+        createDto.setUsername("whiteship");
+        createDto.setPassword("password");
+
+        ResultActions result = mockMvc.perform(get("/accounts"));
+
+        result.andDo(print());
+        result.andExpect(status().isOk());
     }
 
 
