@@ -67,6 +67,8 @@ public class AccountControllerTest {
 
         // TODO Json path
         //result.andExpect((ResultMatcher) jsonPath("$.username",is("whiteship")));
+        //referance: http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/ResultActions.html
+        result.andExpect(jsonPath("$.username").value("whiteship"));
 
     }
 
@@ -102,6 +104,7 @@ public class AccountControllerTest {
 
         expectedBadResult.andDo(print());
         expectedBadResult.andExpect(status().isBadRequest());
+        expectedBadResult.andExpect(jsonPath("$.code").value("duplicated.username.exception"));
     }
 
 
